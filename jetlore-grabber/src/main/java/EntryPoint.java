@@ -14,7 +14,7 @@ import java.util.Scanner;
  * Created by a.pervushov on 18.10.2017.
  */
 public class EntryPoint {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Choose network (1- FB, 2- Twitter, other- exit): ");
