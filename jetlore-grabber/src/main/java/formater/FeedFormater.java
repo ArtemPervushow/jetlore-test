@@ -9,7 +9,5 @@ import java.util.Collection;
 public interface FeedFormater {
     void printReportFromFeeds(Collection<Feed> feeds);
     void printFeed(Feed feed);
-    String formatContent(LinkedContent content, FeedSource source);
-    String decorateBefore(LinkedContent content, FeedSource source);
-    String decorateAfter(LinkedContent content, FeedSource source);
+    void prepareContent(LinkedContent linkedContent, FeedSource source);
 }

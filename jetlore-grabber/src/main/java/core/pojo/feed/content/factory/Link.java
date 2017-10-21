@@ -3,6 +3,8 @@ package core.pojo.feed.content.factory;
 import core.pojo.feed.FeedSource;
 import core.pojo.feed.content.ContentStatus;
 import core.pojo.feed.content.LinkedContent;
+import core.pojo.feed.content.decorator.EntityDecorator;
+import core.pojo.feed.content.decorator.LinkDecorator;
 
 import java.util.regex.Pattern;
 
@@ -38,6 +40,6 @@ public class Link extends LinkedContent {
 
     @Override
     public String print() {
-        return value;
+        return super.decorateBefore() + value + super.decorateAfter();
     }
 }

@@ -1,6 +1,9 @@
 package core.pojo.feed.content.factory;
 
 import core.pojo.feed.content.LinkedContent;
+import core.pojo.feed.content.decorator.LinkDecorator;
+import core.pojo.feed.content.decorator.RawTextDecorator;
+import core.pojo.feed.content.decorator.tag.TagRawTextDecorator;
 
 public class RawText extends LinkedContent {
     private String value;
@@ -19,6 +22,6 @@ public class RawText extends LinkedContent {
 
     @Override
     public String print() {
-        return value;
+        return super.decorateBefore() + value + super.decorateAfter();
     }
 }

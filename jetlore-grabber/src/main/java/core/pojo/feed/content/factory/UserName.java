@@ -3,6 +3,8 @@ package core.pojo.feed.content.factory;
 import core.pojo.feed.FeedSource;
 import core.pojo.feed.content.ContentStatus;
 import core.pojo.feed.content.LinkedContent;
+import core.pojo.feed.content.decorator.RawTextDecorator;
+import core.pojo.feed.content.decorator.UserNameDecorator;
 
 import java.util.regex.Pattern;
 
@@ -38,6 +40,6 @@ public class UserName extends LinkedContent {
 
     @Override
     public String print() {
-        return nick;
+        return super.decorateBefore() + nick + super.decorateAfter();
     }
 }

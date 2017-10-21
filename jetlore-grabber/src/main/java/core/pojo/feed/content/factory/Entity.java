@@ -3,13 +3,16 @@ package core.pojo.feed.content.factory;
 import core.pojo.feed.FeedSource;
 import core.pojo.feed.content.ContentStatus;
 import core.pojo.feed.content.LinkedContent;
+import core.pojo.feed.content.decorator.ContentDecorator;
+import core.pojo.feed.content.decorator.EntityDecorator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class Entity extends LinkedContent {
 
     protected static Pattern entityPattern = Pattern.compile("\\b[A-Z][a-zA-Z]*\\b");
-
     private String name;
 
     protected Entity(String name) {
@@ -39,6 +42,6 @@ public class Entity extends LinkedContent {
 
     @Override
     public String print() {
-        return name;
+        return super.decorateBefore() + name + super.decorateAfter();
     }
 }

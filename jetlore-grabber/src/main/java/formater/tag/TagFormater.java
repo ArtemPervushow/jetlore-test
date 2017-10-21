@@ -3,8 +3,10 @@ package formater.tag;
 import core.pojo.feed.Feed;
 import core.pojo.feed.FeedSource;
 import core.pojo.feed.content.LinkedContent;
+import core.pojo.feed.content.decorator.tag.*;
 import core.pojo.feed.content.factory.Entity;
 import core.pojo.feed.content.factory.Link;
+import core.pojo.feed.content.factory.RawText;
 import core.pojo.feed.content.factory.UserName;
 import formater.FeedFormater;
 
@@ -25,7 +27,8 @@ public class TagFormater implements FeedFormater {
 
         LinkedContent tempContent = feed.getHeadContent();
         while (tempContent != null){
-            builder.append(formatContent(tempContent, feed.getSource()));
+            prepareContent(tempContent, feed.getSource());
+            builder.append(tempContent.print());
 
             tempContent = tempContent.getNext();
         }
@@ -34,45 +37,10 @@ public class TagFormater implements FeedFormater {
     }
 
     @Override
-    public String formatContent(LinkedContent content, FeedSource source){
-        return decorateBefore(content, source) + content.print() + decorateAfter(content, source);
+    public void prepareContent(LinkedContent linkedContent, FeedSource source) {
+        TagDecoratorBuilder builder = new TagDecoratorBuilder(linkedContent, source);
+
+        linkedContent.addDecorator(builder.buildDecorator());
     }
-
-    @Override
-    public String decorateBefore(LinkedContent content, FeedSource source){
-        if(content instanceof Entity){
-            return "<strong>";
-        }
-
-        if(content instanceof Link){
-            return "<a href=";
-        }
-
-        if(content instanceof UserName){
-            return "<a href="
-                    + (source == FeedSource.TWITTER ? "http://twitter.com/" : "http://facebook.com/")
-                    + ((UserName)content).getNick();
-        }
-
-        return " ";
-    }
-
-    @Override
-    public String decorateAfter(LinkedContent content, FeedSource source){
-        if(content instanceof Entity){
-            return "</strong>";
-        }
-
-        if(content instanceof Link){
-            return "></a>";
-        }
-
-        if(content instanceof UserName){
-            return "</a>";
-        }
-
-        return " ";
-    }
-
 
 }
